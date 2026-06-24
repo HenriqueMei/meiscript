@@ -235,8 +235,8 @@ user_pentest()
         echo "====================================="
         echo ""
         echo "Com grandes poderes vêm grandes responsabilidades"
-        sleep2
         echo "Criar Pastas para ferramentas de seguranca"
+        sleep2
         mkdir -p ~/src
         mkdir -p ~/.local/share/applications
         mkdir -p ~/Desktop
@@ -269,10 +269,8 @@ user_pentest()
         fi 
         #===TesteSSL===
         cd ~/src && cp ~/src/meiscript/prog/testssl.sh ~/src/
-        chmod +x ~/src/tesetssl.sh
-        if ! grep -q "alias testssl=" ~/.bashrc; then 
-            echo "alias testssl='sudo ~/src/testssl.sh'" >> ~/.bashrc 
-        fi
+        chmod +x ~/src/testssl.sh
+        sudo ln -sf ~/src/testssl.sh /usr/local/bin/testssl
         #===Jonh Jumbo===
         cd ~/src
         git clone https://github.com/openwall/john -b bleeding-jumbo john
@@ -518,6 +516,7 @@ linux()
     echo "3 - Instalar Programas"
     echo "4 - Ambiente Pentest"
     echo "5 - DualBoot"
+    echo "6 - NVIDIA"
     echo "9 - Menu Principal"
     echo "0 - Sair"
     echo "---------------------------"
@@ -565,6 +564,25 @@ linux()
             logo
             echo "Preparando Linux para DualBoot"
             sudo timedatectl set-local-rtc 1
+            echo "[!] Conclído."
+            sleep2
+            linux
+            ;;
+        4)
+            clear
+            logo
+            echo "====================================="
+            echo "       Instalação NVIDIA & Drivers   "
+            echo "====================================="
+            echo "[!]Secure Boot tem que estar desativado"
+            if ! grep -q "^deb http.*contrib" /etc/apt/sources.list; then
+            sudo sed -i '/^deb http/s/main non-free-firmware/main contrib non-free non-free-firmware/g' /etc/apt/sources.list
+                        echo "[!] Repositórios adicionados com sucesso."
+            else
+                echo "[!] Repositórios já estavam configurados."
+            fi
+            sudo apt update && sudo apt install linux-headers-$(uname -r)
+            sudo apt install nvidia-kernel-dkms nvidia-driver firmware-misc-nonfree nvtop
             echo "[!] Conclído."
             sleep2
             linux
