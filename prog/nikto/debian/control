@@ -1,0 +1,44 @@
+Source: nikto
+Section: non-free/net
+Priority: optional
+Maintainer: Kali Developers <devel@kali.org>
+Uploaders:
+ Sophie Brun <sophie@offensive-security.com>,
+ Daniel Ruiz de Alegría <daniruiz@kali.org>,
+XSBC-Original-Maintainer: Vincent Bernat <bernat@debian.org>
+Build-Depends:
+ debhelper-compat (= 13),
+Standards-Version: 4.7.3
+Homepage: https://github.com/sullo/nikto
+XS-Debian-Vcs-Git: https://salsa.debian.org/debian/nikto.git
+XS-Debian-Vcs-Browser: https://salsa.debian.org/debian/nikto
+Vcs-Git: https://gitlab.com/kalilinux/packages/nikto.git
+Vcs-Browser: https://gitlab.com/kalilinux/packages/nikto
+
+Package: nikto
+Architecture: all
+Depends:
+ libdigest-perl-md5-perl,
+ libio-socket-ssl-perl,
+ libjson-perl,
+ libjson-pp-perl,
+ libnet-ssleay-perl,
+ libwhisker2-perl,
+ libxml-libxml-perl,
+ libxml-writer-perl,
+ ${misc:Depends},
+ ${perl:Depends},
+Suggests:
+ nmap,
+Description: web server security scanner
+ Nikto is a pluggable web server and CGI scanner written in Perl, using
+ rfp's LibWhisker to perform fast security or informational checks.
+ .
+ Features:
+  - Easily updatable CSV-format checks database
+  - Output reports in plain text or HTML
+  - Available HTTP versions automatic switching
+  - Generic as well as specific server software checks
+  - SSL support (through libnet-ssleay-perl)
+  - Proxy support (with authentication)
+  - Cookies support

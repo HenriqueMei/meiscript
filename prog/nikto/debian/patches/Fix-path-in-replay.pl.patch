@@ -1,0 +1,23 @@
+From: Sophie Brun <sophie@kali.org>
+Date: Thu, 28 May 2026 17:26:43 +0200
+Subject: Fix path in replay.pl
+
+---
+ program/utils/replay.pl | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/program/utils/replay.pl b/program/utils/replay.pl
+index b5c2115..c1b35ed 100755
+--- a/program/utils/replay.pl
++++ b/program/utils/replay.pl
+@@ -28,8 +28,8 @@ sub replay_usage {
+ # Save @ARGV before requiring nikto_core.plugin (it may process @ARGV)
+ my @saved_argv = @ARGV;
+ 
+-require File::Spec->catfile($program_dir, 'plugins', 'LW2.pm');
+-require File::Spec->catfile($program_dir, 'plugins', 'nikto_core.plugin');
++require File::Spec->catfile($program_dir, 'nikto', 'plugins', 'LW2.pm');
++require File::Spec->catfile($program_dir, 'nikto', 'plugins', 'nikto_core.plugin');
+ 
+ # Restore @ARGV for our own GetOptions processing
+ @ARGV = @saved_argv;

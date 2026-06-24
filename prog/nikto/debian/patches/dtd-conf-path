@@ -1,0 +1,51 @@
+From: Mati Aharoni <muts@kali.org>
+Date: Thu, 28 May 2026 17:25:49 +0200
+Subject: change path to nikto.dtd
+
+Last-Update: 2019-03-13
+
+Last-Update: 2019-03-13
+---
+ program/nikto.conf.default | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/program/nikto.conf.default b/program/nikto.conf.default
+index 22f05a4..55efb4c 100644
+--- a/program/nikto.conf.default
++++ b/program/nikto.conf.default
+@@ -15,7 +15,7 @@ RFIURL=https://cirt.net/public/rfiinc.txt
+ #SKIPIDS=
+ 
+ # The DTD
+-NIKTODTD=templates/nikto.dtd
++NIKTODTD=/var/lib/nikto/templates/nikto.dtd
+ 
+ # the default HTTP version to try... can/will be changed as necessary
+ DEFAULTHTTPVER=1.1
+@@ -43,10 +43,10 @@ VERSION_API=https://nikto-telemetry.csullo.workers.dev/products.json
+ 
+ # Cookies: send cookies with all requests
+ # Multiple can be set by separating with a semi-colon, e.g.:
+-# "cookie1=cookie value";"cookie2=cookie val" 
++# "cookie1=cookie value";"cookie2=cookie val"
+ #STATIC-COOKIE="name=value";"something=nothing";
+ 
+-# The below allows you to vary which HTTP methods are used to check whether an HTTP(s) server 
++# The below allows you to vary which HTTP methods are used to check whether an HTTP(s) server
+ # is running. Some web servers, such as the autopsy web server do not implement the HEAD method
+ CHECKMETHODS=GET
+ 
+@@ -62,10 +62,10 @@ CHECKMETHODS=GET
+ @@EXTRAS=dictionary;siebel
+ @@DEFAULT=@@ALL;-@@EXTRAS;tests(report:500)
+ 
+-# Choose SSL libs: 
+-# SSLeay        - use Net::SSLeay 
++# Choose SSL libs:
++# SSLeay        - use Net::SSLeay
+ # SSL           - use Net::SSL  -- NOT recommended as it does not support SAN extraction
+-# auto          - automatically choose best available 
++# auto          - automatically choose best available
+ LW_SSL_ENGINE=auto
+ 
+ # Number of failures before giving up

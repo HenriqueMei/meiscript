@@ -1,0 +1,43 @@
+lbd (0.4-1kali3) kali-dev; urgency=medium
+
+  [ Kali Janitor ]
+  * Trim trailing whitespace.
+  * Update standards version to 4.6.1, no changes needed.
+
+  [ Ben Wilson ]
+  * Fix email address
+  * Add Uploaders
+  * Remove template comment and switch spaces to tabs
+
+  [ Steev Klimaszewski ]
+  * Add d/watch pointing to git repository.
+  * Update standards version to 4.6.2, no changes needed.
+  * Prepare for Release
+
+ -- Steev Klimaszewski <steev@kali.org>  Thu, 26 Jan 2023 14:54:25 -0600
+
+lbd (0.4-1kali2) kali-dev; urgency=medium
+
+  [ Raphaël Hertzog ]
+  * Update Maintainer field
+  * Update Vcs-* fields for the move to gitlab.com
+  * Add GitLab's CI configuration file
+  * Configure git-buildpackage for Kali
+  * Update URL in GitLab's CI configuration file
+
+  [ Sophie Brun ]
+  * Update packaging
+
+ -- Sophie Brun <sophie@offensive-security.com>  Mon, 14 Dec 2020 17:17:24 +0100
+
+lbd (0.4-1kali1) kali; urgency=low
+
+  * Upstream Update
+
+ -- Jim O'Gorman <elwood@kali.org>  Wed, 08 Oct 2014 11:53:07 -0400
+
+lbd (0.1-1kali0) kali; urgency=low
+
+  * Initial release
+
+ -- Devon Kearns <dookie@kali.org>  Fri, 22 Mar 2013 11:09:08 -0600

@@ -1,0 +1,33 @@
+From: Mati Aharoni <muts@kali.org>
+Date: Thu, 28 May 2026 17:25:49 +0200
+Subject: Change default config
+
+Last-Update: 2019-03-13
+
+Specify default location of nikto files
+Last-Update: 2019-03-13
+---
+ program/nikto.conf.default | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/program/nikto.conf.default b/program/nikto.conf.default
+index 55efb4c..8b099f8 100644
+--- a/program/nikto.conf.default
++++ b/program/nikto.conf.default
+@@ -51,11 +51,11 @@ VERSION_API=https://nikto-telemetry.csullo.workers.dev/products.json
+ CHECKMETHODS=GET
+ 
+ # If you want to specify the location of any of the files, specify them here
+-# EXECDIR=/opt/nikto                    # Location of Nikto
+-# PLUGINDIR=/opt/nikto/plugins          # Location of plugin dir
+-# DBDIR=/opt/nikto/databases            # Location of database dir
+-# TEMPLATEDIR=/opt/nikto/templates      # Location of template dir
+-# DOCDIR=/opt/nikto/docs                # Location of docs dir
++EXECDIR=/var/lib/nikto                    # Location of Nikto
++PLUGINDIR=/var/lib/nikto/plugins          # Location of plugin dir
++DBDIR=/var/lib/nikto/databases            # Location of database dir
++TEMPLATEDIR=/var/lib/nikto/templates      # Location of template dir
++DOCDIR=/var/lib/nikto/docs                # Location of docs dir
+ 
+ # Default plugin macros
+ # Remove plugins designed to be run standalone

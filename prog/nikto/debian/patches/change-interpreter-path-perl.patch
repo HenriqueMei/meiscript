@@ -1,0 +1,21 @@
+From: Sophie Brun <sophie@offensive-security.com>
+Date: Thu, 28 May 2026 17:25:49 +0200
+Subject: Use /usr/bin/perl instead of /usr/bin/env perl
+
+Last-Update: 2019-03-13
+
+Last-Update: 2019-03-13
+---
+ program/nikto.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/program/nikto.pl b/program/nikto.pl
+index 37bcee7..f6b554b 100755
+--- a/program/nikto.pl
++++ b/program/nikto.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ use strict;
+ 
+ # Modules are now loaded in a function so errors can be trapped and evaluated

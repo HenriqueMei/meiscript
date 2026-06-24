@@ -1,0 +1,18 @@
+Source: lbd
+Section: utils
+Priority: optional
+Maintainer: Kali Developers <devel@kali.org>
+Uploaders: Devon Kearns <dookie@kali.org>,
+           Jim O'Gorman <elwood@kali.org>,
+           Sophie Brun <sophie@offensive-security.com>,
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: http://ge.mine.nu/code/
+Vcs-Git: https://gitlab.com/kalilinux/packages/lbd.git
+Vcs-Browser: https://gitlab.com/kalilinux/packages/lbd
+
+Package: lbd
+Architecture: all
+Depends: ${misc:Depends}
+Description: Load balancer detector
+ Checks if a given domain uses load-balancing.

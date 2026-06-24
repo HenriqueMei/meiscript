@@ -1,0 +1,54 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: nikto
+Source: https://github.com/sullo/nikto
+Comment: This package is non-free because of non-free license of
+ program/databases/db_*
+
+Files: *
+Copyright: © 2001-2018 Chris Sullo <sullo@cirt.net>
+License: GPL-2
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 2 of the License only.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+Files: debian/*
+Copyright: © 2002 Thomas Seyrat <tomasera@debian.org>
+           © 2008 Vincent Bernat <bernat@debian.org>
+           2019 Sophie Brun <sophie@offensive-security.com>
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2  of the license, or (at
+ your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+Files: program/databases/*
+Copyright: © 2007 CIRT, Inc.
+License: other
+ The license is non-free.
+ .
+ All Rights Reserved.
+ .
+ This file may only be distributed and used with the full Nikto package.
+ This file may not be used with any software product without written permission from
+ Chris Sullo (csullo@gmail.com)
+ .
+ Note:
+ By submitting updates to this file you are transferring any and all copyright
+ interest in the data to Chris Sullo so it can modified, incorporated into this product
+ relicensed or reused.
