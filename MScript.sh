@@ -245,7 +245,7 @@ user_pentest()
         sudo apt install python3 python3-pip python3-venv python3-full python3-setuptools -y
         sudo apt install build-essential golang-go python3-dev libxml2-dev libxslt1-dev zlib1g-dev -y
         sudo apt install python3-pexpect python3-cryptography python3-requests python3-openssl python3-pyte -y
-        sudo apt install libssl-dev pkg-config libgmp-dev libbz2-dev libpcap-dev -y
+        sudo apt install libssl-dev pkg-config libgmp-dev libbz2-dev libpcap-dev libjson-perl libxml-writer-perl -y
         #==============================================Tools Pentest==============================================
         sudo apt install nmap wafw00f whatweb whois dnsutils hping3 nbtscan hydra gobuster sqlmap sslscan -y
         sudo snap install core && sudo snap install amass
@@ -268,7 +268,7 @@ user_pentest()
             echo "alias nikto='~/src/nikto/program/nikto.pl'" >> ~/.bashrc 
         fi 
         #===TesteSSL===
-        cd ~/src && cp -r ~/src/meiscript/prog/testssl.sh ~/src/testssl.sh 
+        cd ~/src && cp ~/src/meiscript/prog/testssl.sh ~/src/
         chmod +x ~/src/tesetssl.sh
         if ! grep -q "alias testssl=" ~/.bashrc; then 
             echo "alias testssl='sudo ~/src/testssl.sh'" >> ~/.bashrc 
