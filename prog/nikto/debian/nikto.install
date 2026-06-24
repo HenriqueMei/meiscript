@@ -1,6 +1,0 @@
-debian/helper-script/* usr/bin/
-program/*.pl var/lib/nikto/
-program/databases/* var/lib/nikto/databases/
-program/nikto.conf.default var/lib/nikto/
-program/plugins/* var/lib/nikto/plugins/
-program/templates/* var/lib/nikto/templates/
