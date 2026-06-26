@@ -20,8 +20,8 @@ vm_torrent()
     if ! grep -q "1a561e8f-9e39-4155-a1b5-af5d159c90a9" /etc/fstab; then
         echo "UUID=1a561e8f-9e39-4155-a1b5-af5d159c90a9 /mnt/HD1 ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab
     fi
-    if ! grep -q "d15cb8a0-f0f8-4505-b2bd-5b69c58b6318" /etc/fstab; then
-        echo "UUID=d15cb8a0-f0f8-4505-b2bd-5b69c58b6318 /mnt/HD2 ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab
+    if ! grep -q "f410e9ad-96f1-4699-83e3-184ccde7beb7" /etc/fstab; then
+        echo "UUID=f410e9ad-96f1-4699-83e3-184ccde7beb7 /mnt/HD2 ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab
     fi
 
     sudo mount -a
@@ -31,8 +31,6 @@ vm_torrent()
     echo "[+] Configurando credenciais e diretórios do Transmission..."
     
     # Variáveis de credenciais (Altere aqui os valores reais)
-    RPC_USER="seu_usuario_aqui"
-    RPC_PASS="sua_senha_aqui"
     DIR_PADRAO="/mnt/HD" # Diretório padrão, mas você altera na WebUI a cada download
     
     JSON_FILE="/etc/transmission-daemon/settings.json"
@@ -51,14 +49,20 @@ vm_torrent()
 
     #==============================#
     #   Comandos de Diagnostico    #
-    #   Espaco no HD               #
+    # ---------------------------- #
+    #       Espaco no HD           #
     #   df -h                      #
-    #   Montagem                   #
-    #   mount | grep /mnt          #
-    #   UUID HD                    #
-    #   sudo blkid                 #
     #   df -h | grep /mnt          #
+    # ---------------------------- #
+    #        Montagem              #
+    #   mount | grep /mnt          #
+    # ---------------------------- #
+    #        UUID HD               #
+    #   sudo blkid                 #
+    # ---------------------------- #
+    #   Verificar Status do App    #
     #   ps aux | grep transmission #
+    # ---------------------------- #
     #   Recarregar Montagem HD     #
     #   sudo mount -a              #
     #==============================#
@@ -386,6 +390,12 @@ user_pentest()
         sudo ln -sf ~/BurpSuiteCommunity/BurpSuiteCommunity /usr/local/bin/burpsuite
         rm ~/burp.sh
     clear
+    cat << 'EOF' > ~/firefox.txt
+https://addons.mozilla.org/pt-BR/firefox/addon/foxyproxy-standard/
+https://addons.mozilla.org/pt-BR/firefox/addon/shodan-addon/
+https://addons.mozilla.org/pt-BR/firefox/addon/wappalyzer/
+https://addons.mozilla.org/pt-BR/firefox/addon/hackbar-free/
+EOF
     echo "[!] Concluído"
     sleep2
     linux
