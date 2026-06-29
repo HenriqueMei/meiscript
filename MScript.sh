@@ -1,5 +1,66 @@
 #!/bin/bash
 
+vm_comfyui()
+{
+    clear
+    logo
+    echo "========================================="
+    echo "       Preparo de Ambiente: ComfyUI      "
+    echo "========================================="
+    
+    sudo apt update && sudo apt install python3 python3-venv python3-pip git -y
+
+    echo "[+] Baixando o ComfyUI do Github..."
+    cd $HOME
+    if [ ! -d "ComfyUI" ]; then
+        git clone https://github.com/comfyanonymous/ComfyUI.git
+    else
+        echo "[!] Pasta ComfyUI já existe. Atualizando repositório..."
+        cd ComfyUI && git pull && cd $HOME
+    fi
+    cd ComfyUI
+
+    echo "[+] Criando e ativando o ambiente virtual Python (venv)..."
+    python3 -m venv venv
+    # O comando 'source' avisa o script para usar o Python de dentro da pasta
+    source venv/bin/activate
+
+    echo "[+] Instalando o 'Cérebro' (PyTorch) otimizado para NVIDIA CUDA..."
+    sleep 2
+    pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
+
+    echo "[+] Instalando bibliotecas restantes do ComfyUI..."
+    sleep 2
+    pip install -r requirements.txt
+
+    echo "[+] Criando script de inicialização rápida..."
+    # Cria um atalho na pasta para você não precisar digitar os comandos toda vez
+    cat << 'EOF' > start_comfyui.sh
+#!/bin/bash
+cd "$HOME/ComfyUI"
+source venv/bin/activate
+# Inicia com otimização de VRAM e libera acesso na rede local
+python main.py --lowvram --listen 0.0.0.0
+EOF
+    chmod +x start_comfyui.sh
+
+    echo "[!] Instalação do ComfyUI concluída!"
+    echo "[!] Para ligar, basta rodar: ~/ComfyUI/start_comfyui.sh"
+    
+    # Sai da bolha do venv para o script continuar normalmente
+    deactivate
+    # Criar Nome global
+    if ! grep -q "alias comfyui" ~/.bashrc; then
+        echo "alias comfyui='$HOME/ComfyUI/start_comfyui.sh'" >> ~/.bashrc
+    fi
+    #firewall
+    # Acesso ao Painel Web (HTTPS 8188)
+    sudo ufw allow in on tailscale0 to any port 8188 proto tcp
+    echo "[!] Concluído."
+    sleep 2
+    linux_vm
+}
+
 vm_torrent()
 {
     clear
@@ -75,7 +136,7 @@ vm_torrent()
     sudo ufw allow 51413/tcp
     sudo ufw allow 51413/udp
     echo "[!] Concluído."
-    sleep2
+    sleep 2
     linux_vm
 }
 
@@ -102,7 +163,7 @@ vm_unifi()
     # Acesso ao Painel Web (HTTPS 8443)
     sudo ufw allow in on tailscale0 to any port 8443 proto tcp
     echo "[!] Concluído."
-    sleep2
+    sleep 2
     linux_vm
 }
 
@@ -127,7 +188,7 @@ EOF
 
 sudo systemctl daemon-reload
 sudo systemctl restart ollama
-sleep2
+sleep 2
 ollama pull qwen2.5:7b
 ollama pull deepseek-coder
 
@@ -160,7 +221,7 @@ EOF
 # Interface Web do Open WebUI (3000) - Consumir a IA remotamente
     sudo ufw allow in on tailscale0 to any port 3000 proto tcp
     echo "[!] Concluído."
-    sleep2
+    sleep 2
     linux_vm
 }
 
@@ -185,33 +246,37 @@ linux_vm()
     case $opcao in
         1)
             echo "Preparando para configurar ambiente"
-            sleep2
+            sleep 2
             vm_unifi            
         ;;
         2)
             echo "Preparando para configurar ambiente"
-            sleep2
+            sleep 2
             vm_torrent            
             ;;
         3)
             echo "Preparando para configurar ambiente"
-            sleep2
+            sleep 2
             vm_ia
             ;;
+        4) echo "Preparando para configurar ambiente"
+        sleep 2
+        vm_comfyui
+        ;;
         9)
             echo "Retornando para o Menu Principal"
-            sleep2
+            sleep 2
             menu_principal
             ;;
         0)
             echo "Saindo..."
-            sleep2
+            sleep 2
             clear
             exit 0
         ;;
         *)
             echo "Opção inválida!"
-            sleep2
+            sleep 2
             ;;
     esac
     done
@@ -240,7 +305,7 @@ user_pentest()
         echo ""
         echo "Com grandes poderes vêm grandes responsabilidades"
         echo "Criar Pastas para ferramentas de seguranca"
-        sleep2
+        sleep 2
         mkdir -p ~/src
         mkdir -p ~/.local/share/applications
         mkdir -p ~/Desktop
@@ -397,7 +462,7 @@ https://addons.mozilla.org/pt-BR/firefox/addon/wappalyzer/
 https://addons.mozilla.org/pt-BR/firefox/addon/hackbar-free/
 EOF
     echo "[!] Concluído"
-    sleep2
+    sleep 2
     linux
 }
 
@@ -409,15 +474,15 @@ linux_maker()
     echo "      Preparar Ambiente Linux        "
     echo "====================================="
     echo "[+] Atualizando o Sistema"
-    sleep2
+    sleep 2
     sudo apt update && sudo apt full-upgrade -y
     echo "[+] Instalando pacotes basicos"
-    sleep2
+    sleep 2
     sudo apt install git snapd dkms gnupg -y
     sudo apt install apt-transport-https ca-certificates lsb-release -y
     sudo systemctl enable --now snapd.apparmor
     echo "[!] Concluído"
-    sleep2
+    sleep 2
     linux
 }
 
@@ -522,7 +587,7 @@ linux()
     echo "====================================="
     echo "Escolha uma opção:"
     echo "1 - Ambiente Linux"
-    echo "2 - Configuracao de Notebook"
+    echo "2 - Configuracao de Notebook + Acesso Remoto"
     echo "3 - Instalar Programas"
     echo "4 - Ambiente Pentest"
     echo "5 - DualBoot"
@@ -537,14 +602,14 @@ linux()
     case $opcao in
         1)
             echo "Preparando para configurar ambiente"
-            sleep2
+            sleep 2
             linux_maker
         ;;
         2)
             clear
             logo
             echo "Configurando Notebook + Acesso Remoto KDE"
-            sleep2
+            sleep 2
             # Energia: Sempre Ligado (Tampa fechada e inatividade)
             sudo sed -i 's/.*HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
             sudo sed -i 's/.*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' /etc/systemd/logind.conf
@@ -555,18 +620,18 @@ linux()
             sudo systemctl enable xrdp
             echo "exec startplasma-x11" > ~/.xsession
             echo "[!] Concluído."
-            sleep2
+            sleep 2
             linux
             ;;
         3)
             echo "Carregando lista de programas..."
             echo "Aguarde um momento"
-            sleep2
+            sleep 2
             app_install
             ;;
         4)
             echo "Montando arsenal Hacker"
-            sleep2
+            sleep 2
             user_pentest
             ;;
         5)
@@ -575,10 +640,10 @@ linux()
             echo "Preparando Linux para DualBoot"
             sudo timedatectl set-local-rtc 1
             echo "[!] Conclído."
-            sleep2
+            sleep 2
             linux
             ;;
-        4)
+        6)
             clear
             logo
             echo "====================================="
@@ -591,26 +656,26 @@ linux()
             else
                 echo "[!] Repositórios já estavam configurados."
             fi
-            sudo apt update && sudo apt install linux-headers-$(uname -r)
-            sudo apt install nvidia-kernel-dkms nvidia-driver firmware-misc-nonfree nvtop
+            sudo apt update && sudo apt install linux-headers-$(uname -r) -y
+            sudo apt install nvidia-kernel-dkms nvidia-driver firmware-misc-nonfree nvtop -y
             echo "[!] Conclído."
-            sleep2
+            sleep 2
             linux
             ;;
         9)
             echo "Retornando para o Menu Principal"
-            sleep2
+            sleep 2
             menu_principal
             ;;
         0)
             echo "Saindo..."
-            sleep2
+            sleep 2
             clear
             exit 0
         ;;
         *)
             echo "Opção inválida!"
-            sleep2
+            sleep 2
             ;;
     esac
     done
@@ -641,7 +706,7 @@ setup_inicial()
         # 2. Permite SSH (Porta 22) APENAS Tailscale
         sudo ufw allow in on tailscale0 to any port 22 proto tcp
         sudo ufw --force enable
-        sleep2
+        sleep 2
 }
 
 menu_principal()
@@ -667,28 +732,28 @@ menu_principal()
         case $opcao in
             1)
                 echo "Preparando Opcões..."
-                sleep2
+                sleep 2
                 linux
                 ;;
             2)
                 echo "Preparando Opcões..."
-                sleep2
+                sleep 2
                 linux_vm
                 ;;
             3)
                 echo "Preparando Opções..."
-                sleep2
+                sleep 2
                 linux_custom
                 ;;
             0)
                 echo "Saindo..."
-                sleep2
+                sleep 2
                 clear
                 exit 0
                 ;;
             *)
                 echo "Opção inválida!"
-                sleep2
+                sleep 2
                 ;;
         esac
         clear
