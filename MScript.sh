@@ -27,7 +27,7 @@ vm_comfyui()
 
     echo "[+] Instalando o 'Cérebro' (PyTorch) otimizado para NVIDIA CUDA..."
     sleep 2
-    pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 
     echo "[+] Instalando bibliotecas restantes do ComfyUI..."
     sleep 2
@@ -56,6 +56,11 @@ EOF
     #firewall
     # Acesso ao Painel Web (HTTPS 8188)
     sudo ufw allow in on tailscale0 to any port 8188 proto tcp
+
+    # DreamShapere - Modeelo para IA utilizar
+    mkdir -p $HOME/ComfyUI/models/checkpoints/
+    wget -nc -O $HOME/ComfyUI/models/checkpoints/DreamShaper_8.safetensors https://huggingface.co/Lykon/DreamShaper/resolve/main/DreamShaper_8_pruned.safetensors
+
     echo "[!] Concluído."
     sleep 2
     linux_vm
@@ -687,7 +692,7 @@ setup_inicial()
     logo
         echo "[!] Se o script já foi executado, ele vai pular essas etapas."
         echo "[!] Aguarde por favor, dependendo da sua internet pode demorar um pouco."
-
+        git pull
         if ! command -v ufw &> /dev/null || ! command -v curl &> /dev/null || ! command -v wget &> /dev/null || ! command -v ssh &> /dev/null; then       
         sudo apt update && sudo apt install ufw curl wget openssh-server -y
         sudo systemctl enable ssh
@@ -724,6 +729,7 @@ menu_principal()
         echo "1 - Computador/Notebook"
         echo "2 - VM"
         echo "3 - Linux Custom"
+        echo "4- ComfyUI"
         echo "0 - Sair"
         echo "====================================="
 
