@@ -243,6 +243,7 @@ linux_vm()
         echo "1 - Unifi"
         echo "2 - Torrent"
         echo "3 - IA"
+        echo "4- ComfyUI"
         echo "9 - Retornando para o Menu Principal"
         echo "0 - Sair"
         echo "====================================="
@@ -342,9 +343,15 @@ user_pentest()
             echo "alias nikto='~/src/nikto/program/nikto.pl'" >> ~/.bashrc 
         fi 
         #===TesteSSL===
-        cd ~/src && cp ~/src/meiscript/prog/testssl.sh ~/src/
-        chmod +x ~/src/testssl.sh
-        sudo ln -sf ~/src/testssl.sh /usr/local/bin/testssl
+        cd ~/src 
+        if [-d "testssl.sh"]; then
+            git clone --depth 1 https://github.com/testssl/testssl.sh.git --branch 3.3dev
+        else
+            echo "[!] Repositório testssl.sh já existe. Atualizando..."
+            cd testssl.sh && git pull && cd ..
+        fi
+        chmod +x ~/src/testssl.sh/testessl.sh
+        sudo ln -sf ~/src/testssl.sh/testssl.sh /usr/local/bin/testssl
         #===Jonh Jumbo===
         cd ~/src
         git clone https://github.com/openwall/john -b bleeding-jumbo john
@@ -729,7 +736,6 @@ menu_principal()
         echo "1 - Computador/Notebook"
         echo "2 - VM"
         echo "3 - Linux Custom"
-        echo "4- ComfyUI"
         echo "0 - Sair"
         echo "====================================="
 
